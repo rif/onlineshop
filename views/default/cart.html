@@ -1,0 +1,16 @@
+{{extend 'layout.html'}}
+
+<h1>{{=T('Your Shopping Cart')}}</h1>
+
+<table width="100%">
+  {{for id,qty in cart.iteritems():}}{{p=db.product(id)}}
+  <tr>
+    <td>{{=p.name}}</td>
+    <td>${{=p.price}}</td>
+    <td id="item{{=id}}">{{=qty}}</td>
+    <td><button onclick="ajax('{{=URL('cart_callback',vars=dict(id=p.id,action='add'))}}',[],'item{{=p.id}}')">{{=T('add')}}</button></td>
+    <td><button onclick="ajax('{{=URL('cart_callback',vars=dict(id=p.id,action='sub'))}}',[],'item{{=p.id}}')">{{=T('sub')}}</button></td>
+  </tr>
+  {{pass}}
+</table>
+<a href="{{=URL('buy')}}">{{=T('checkout')}}</a>

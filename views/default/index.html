@@ -1,0 +1,12 @@
+{{extend 'layout.html'}}
+
+<h1>{{=T('Products')}}</h1>
+
+{{for p in products:}}
+<div>
+  <h2>{{=p.name}} - {{=p.price}}</h2>
+  <img src="{{=URL('download',args=p.image)}}" width="600px" align="right"/>
+  {{=MARKMIN(p.description)}}
+  <span id="item{{=p.id}}">{{=session.cart.get(p.id,0)}}</span> in cart - <button onclick="ajax('{{=URL('cart_callback',vars=dict(id=p.id,action='add'))}}',[],'item{{=p.id}}')">{{=T('add to cart')}}</button>
+</div>
+{{pass}}
